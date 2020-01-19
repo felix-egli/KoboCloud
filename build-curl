@@ -1,5 +1,12 @@
 #!/bin/bash
 
+cat <<EOF
+I tried this on ubuntu 14.04, but the produced binary failed
+with "Segementation fault".
+EOF
+
+exit 1
+
 set -exu
 
 openssl_ver='1.1.1d'
