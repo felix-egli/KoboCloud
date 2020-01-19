@@ -1,3 +1,3 @@
 #!/bin/sh
 
-tar -cvzf KoboRoot.tgz -C src etc usr
+tar -cvzf KoboRoot.tgz etc usr
