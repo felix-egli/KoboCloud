@@ -16,7 +16,7 @@ sudo apt-get install gcc-arm-linux-gnueabi make
 SCRIPT_DIR=$PWD
 
 BUILD_DIR=$(mktemp -d /tmp/build-curl-XXXX)
-trap 'echo rm $BUILD_DIR -rf' EXIT
+trap 'rm $BUILD_DIR -rf' EXIT
 
 ##
 # setup environment
@@ -64,4 +64,7 @@ sed -i 's/curl_func_clock_gettime="yes"/curl_func_clock_gettime="no"/g' configur
 sed -i 's:\(#define HAVE_POLL.*\):/* \1 */:' lib/curl_config.h
 
 make -j4
+
+${CROSS}-strip src/curl
 cp src/curl $SCRIPT_DIR/usr/local/kobocloud/
+
