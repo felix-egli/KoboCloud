@@ -64,11 +64,12 @@ cd curl-${curl_ver}
 # change configure to disable clock_gettime (not available in kobo glibc)
 sed -i 's/curl_func_clock_gettime="yes"/curl_func_clock_gettime="no"/g' configure
 
-./configure --host=arm-linux-gnueabi --enable-shared=no \
+./configure --host=arm-linux-gnueabi --enable-shared=no --disable-rt \
+  --disable-manual --disable-pthreads --disable-threaded-resolver \
   --with-ssl=$BUILD_DIR/openssl-install
 
 # change lib/curl_config.h is changed to disable poll
-sed -i 's:\(#define HAVE_POLL.*\):/* \1 */:' lib/curl_config.h
+sed -i 's:\(#define HAVE.*_POLL.*\):/* \1 */:' lib/curl_config.h
 
 make -j4
 

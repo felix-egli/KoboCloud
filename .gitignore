@@ -1,2 +1,5 @@
 KoboRoot.tgz
 kobocloudrc
+mk-ca-bundle.pl
+certdata.txt
+*~
