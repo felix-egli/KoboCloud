@@ -4,3 +4,4 @@ mk-ca-bundle.pl
 certdata.txt
 ca-bundle.crt
 *~
+/.project

@@ -1,13 +1,10 @@
 #!/bin/bash
+#
+# you have to install the toolchain before you can build curl:
+# https://github.com/koreader/koxtoolchain
+#
 
-cat <<EOF
-I tried this on ubuntu 14.04, but the produced binary failed
-with "Segementation fault".
-EOF
-
-exit 1
-
-set -exu
+set -eu
 
 openssl_ver='1.1.1d'
 curl_ver='7.68.0'
@@ -15,10 +12,10 @@ curl_ver='7.68.0'
 openssl_src='https://www.openssl.org/source'
 curl_src='https://curl.haxx.se/download'
 
+PATH=/extern/felix/x-tools/arm-kobo-linux-gnueabihf/bin:$PATH
 
-# Install the cross-compiler
-sudo apt-get install gcc-arm-linux-gnueabi make
-
+# install make
+sudo apt-get install make
 
 SCRIPT_DIR=$PWD
 
@@ -28,11 +25,15 @@ trap 'rm $BUILD_DIR -rf' EXIT
 ##
 # setup environment
 #
-export CROSS=arm-linux-gnueabi
+export CROSS=arm-kobo-linux-gnueabihf
 export CC=${CROSS}-gcc
 export LD=${CROSS}-ld
 export AS=${CROSS}-as
 export AR=${CROSS}-ar
+
+type $CC
+
+set -x
 
 ##
 # build openssl
@@ -75,4 +76,3 @@ make -j4
 
 ${CROSS}-strip src/curl
 cp src/curl $SCRIPT_DIR/usr/local/kobocloud/
-
