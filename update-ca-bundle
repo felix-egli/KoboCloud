@@ -2,13 +2,15 @@
 
 set -eu
 
+kobocloud='KoboRoot/usr/local/kobocloud'
+
 wget https://raw.githubusercontent.com/curl/curl/master/lib/mk-ca-bundle.pl -O mk-ca-bundle.pl
 perl mk-ca-bundle.pl 
 
 test -f ca-bundle.crt && {
-  diff -q ca-bundle.crt usr/local/kobocloud/ca-bundle.crt \
+  diff -q ca-bundle.crt $kobocloud/ca-bundle.crt \
   --ignore-matching-lines='^## Certificate data from Mozilla as of: .*' || {
     echo 'installing new file'
-    mv ca-bundle.crt usr/local/kobocloud/
+    mv ca-bundle.crt $kobocloud/
   }
 }
