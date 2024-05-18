@@ -1,3 +1,4 @@
 #!/bin/sh
 
+find -name '*~' -delete
 tar -cvzf KoboRoot.tgz -C KoboRoot etc usr
